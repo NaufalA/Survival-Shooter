@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -12,29 +11,31 @@ public class PlayerHealth : MonoBehaviour
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
+    private Animator _anim;
 
-    Animator anim;
-    AudioSource playerAudio;
-    PlayerMovement playerMovement;
+    private bool _damaged;
+
     //PlayerShooting playerShooting;
-    bool isDead;                                                
-    bool damaged;                                               
+    private bool _isDead;
+    private AudioSource _playerAudio;
+    private PlayerMovement _playerMovement;
+    private static readonly int Die = Animator.StringToHash("Die");
 
 
-    void Awake()
+    private void Awake()
     {
-        anim = GetComponent<Animator>();
-        playerAudio = GetComponent<AudioSource>();
-        playerMovement = GetComponent<PlayerMovement>();
+        _anim = GetComponent<Animator>();
+        _playerAudio = GetComponent<AudioSource>();
+        _playerMovement = GetComponent<PlayerMovement>();
         //playerShooting = GetComponentInChildren<PlayerShooting>();
 
         currentHealth = startingHealth;
     }
 
 
-    void Update()
+    private void Update()
     {
-        if (damaged)
+        if (_damaged)
         {
             damageImage.color = flashColour;
         }
@@ -43,39 +44,39 @@ public class PlayerHealth : MonoBehaviour
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
 
-        damaged = false;
+        _damaged = false;
     }
 
 
     public void TakeDamage(int amount)
     {
-        damaged = true;
+        _damaged = true;
 
         currentHealth -= amount;
 
         healthSlider.value = currentHealth;
 
-        playerAudio.Play();
+        _playerAudio.Play();
 
-        if (currentHealth <= 0 && !isDead)
+        if (currentHealth <= 0 && !_isDead)
         {
             Death();
         }
     }
 
 
-    void Death()
+    private void Death()
     {
-        isDead = true;
+        _isDead = true;
 
         //playerShooting.DisableEffects();
 
-        anim.SetTrigger("Die");
+        _anim.SetTrigger(Die);
 
-        playerAudio.clip = deathClip;
-        playerAudio.Play();
+        _playerAudio.clip = deathClip;
+        _playerAudio.Play();
 
-        playerMovement.enabled = false;
+        _playerMovement.enabled = false;
         //playerShooting.enabled = false;
     }
 }

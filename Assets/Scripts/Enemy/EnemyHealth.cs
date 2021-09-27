@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -9,72 +10,66 @@ public class EnemyHealth : MonoBehaviour
     public AudioClip deathClip;
 
 
-    Animator anim;
-    AudioSource enemyAudio;
-    ParticleSystem hitParticles;
-    CapsuleCollider capsuleCollider;
-    bool isDead;
-    bool isSinking;
+    private Animator _anim;
+    private CapsuleCollider _capsuleCollider;
+    private AudioSource _enemyAudio;
+    private ParticleSystem _hitParticles;
+    private bool _isDead;
+    private bool _isSinking;
 
 
-    void Awake ()
+    private void Awake()
     {
-        anim = GetComponent <Animator> ();
-        enemyAudio = GetComponent <AudioSource> ();
-        hitParticles = GetComponentInChildren <ParticleSystem> ();
-        capsuleCollider = GetComponent <CapsuleCollider> ();
+        _anim = GetComponent<Animator>();
+        _enemyAudio = GetComponent<AudioSource>();
+        _hitParticles = GetComponentInChildren<ParticleSystem>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
 
         currentHealth = startingHealth;
     }
 
 
-    void Update ()
+    private void Update()
     {
-        if (isSinking)
-        {
-            transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-        }
+        if (_isSinking) transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
     }
 
 
-    public void TakeDamage (int amount, Vector3 hitPoint)
+    public void TakeDamage(int amount, Vector3 hitPoint)
     {
-        if (isDead)
+        if (_isDead)
             return;
 
-        enemyAudio.Play ();
+        _enemyAudio.Play();
 
         currentHealth -= amount;
 
-        hitParticles.transform.position = hitPoint;
-        hitParticles.Play();
+        _hitParticles.transform.position = hitPoint;
+        _hitParticles.Play();
 
-        if (currentHealth <= 0)
-        {
-            Death ();
-        }
+        if (currentHealth <= 0) Death();
     }
 
 
-    void Death ()
+    private void Death()
     {
-        isDead = true;
+        _isDead = true;
 
-        capsuleCollider.isTrigger = true;
+        _capsuleCollider.isTrigger = true;
 
-        anim.SetTrigger ("Dead");
+        _anim.SetTrigger("Dead");
 
-        enemyAudio.clip = deathClip;
-        enemyAudio.Play ();
+        _enemyAudio.clip = deathClip;
+        _enemyAudio.Play();
     }
 
 
-    public void StartSinking ()
+    public void StartSinking()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
-        GetComponent<Rigidbody> ().isKinematic = true;
-        isSinking = true;
+        GetComponent<NavMeshAgent>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
+        _isSinking = true;
         //ScoreManager.score += scoreValue;
-        Destroy (gameObject, 2f);
+        Destroy(gameObject, 2f);
     }
 }

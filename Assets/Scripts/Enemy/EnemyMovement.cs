@@ -3,31 +3,31 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
-    Transform player;
-    //PlayerHealth playerHealth;
-    //EnemyHealth enemyHealth;
-    UnityEngine.AI.NavMeshAgent nav;
+    private Transform _player;
+    private PlayerHealth _playerHealth;
+    private EnemyHealth _enemyHealth;
+    private UnityEngine.AI.NavMeshAgent _nav;
 
-
-    private void Awake ()
+    private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag ("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        //playerHealth = player.GetComponent <PlayerHealth> ();
-        //enemyHealth = GetComponent <EnemyHealth> ();
-        nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
+        _playerHealth = _player.GetComponent<PlayerHealth>();
+        _enemyHealth = GetComponent<EnemyHealth>();
+        _nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
 
-    void Update ()
+    private void Update()
     {
-        //if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
-        //{
-            nav.SetDestination (player.position);
-        //}
-        //else
-        //{
-        //    nav.enabled = false;
-        //}
+        // TODO: Implement debounce for destination update
+        if (_enemyHealth.currentHealth > 0 && _playerHealth.currentHealth > 0)
+        {
+            _nav.SetDestination(_player.position);
+        }
+        else
+        {
+            _nav.enabled = false;
+        }
     }
 }

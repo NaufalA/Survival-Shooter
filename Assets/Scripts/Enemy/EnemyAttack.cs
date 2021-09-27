@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -7,62 +6,65 @@ public class EnemyAttack : MonoBehaviour
     public int attackDamage = 10;
 
 
-    Animator anim;
-    GameObject player;
-    PlayerHealth playerHealth;
+    private Animator _anim;
+    private GameObject _player;
+
+    private PlayerHealth _playerHealth;
+
     //EnemyHealth enemyHealth;
-    bool playerInRange;
-    float timer;
+    private bool _playerInRange;
+    private float _timer;
+    private static readonly int PlayerDead = Animator.StringToHash("PlayerDead");
 
 
-    void Awake ()
+    private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag ("Player");
-        playerHealth = player.GetComponent <PlayerHealth> ();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _playerHealth = _player.GetComponent<PlayerHealth>();
         //enemyHealth = GetComponent<EnemyHealth>();
-        anim = GetComponent <Animator> ();
-    }
-
-    void OnTriggerEnter (Collider other)
-    {
-        if(other.gameObject == player && other.isTrigger == false)
-        {
-            playerInRange = true;
-        }
-    }
-
-    void OnTriggerExit (Collider other)
-    {
-        if(other.gameObject == player)
-        {
-            playerInRange = false;
-        }
+        _anim = GetComponent<Animator>();
     }
 
 
-    void Update ()
+    private void Update()
     {
-        timer += Time.deltaTime;
+        _timer += Time.deltaTime;
 
-        if(timer >= timeBetweenAttacks && playerInRange/* && enemyHealth.currentHealth > 0*/)
+        if (_timer >= timeBetweenAttacks && _playerInRange /* && enemyHealth.currentHealth > 0*/)
         {
-            Attack ();
+            Attack();
         }
 
-        if (playerHealth.currentHealth <= 0)
+        if (_playerHealth.currentHealth <= 0)
         {
-            anim.SetTrigger ("PlayerDead");
+            _anim.SetTrigger(PlayerDead);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == _player && other.isTrigger == false)
+        {
+            _playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == _player)
+        {
+            _playerInRange = false;
         }
     }
 
 
-    void Attack ()
+    private void Attack()
     {
-        timer = 0f;
+        _timer = 0f;
 
-        if (playerHealth.currentHealth > 0)
+        if (_playerHealth.currentHealth > 0)
         {
-            playerHealth.TakeDamage (attackDamage);
+            _playerHealth.TakeDamage(attackDamage);
         }
     }
 }
