@@ -8,21 +8,20 @@ public class EnemyManager : MonoBehaviour
     public Transform[] spawnPoints;
 
 
-    void Start ()
+    private void Start()
     {
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+        InvokeRepeating(nameof(Spawn), spawnTime, spawnTime);
     }
 
 
-    void Spawn ()
+    private void Spawn()
     {
         if (playerHealth.currentHealth <= 0f)
         {
             return;
         }
 
-        int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+        var spawnPointIndex = Random.Range(0, spawnPoints.Length);
         Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-
     }
 }
