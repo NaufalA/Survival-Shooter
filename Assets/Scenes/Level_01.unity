@@ -594,9 +594,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1134947107}
-  - component: {fileID: 1134947106}
-  - component: {fileID: 1134947105}
   - component: {fileID: 1134947104}
+  - component: {fileID: 1134947105}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -617,10 +616,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1967415063}
-  enemy: {fileID: 5107561142568117541, guid: f264ab47e25d0374ba89abced0b94b2a, type: 3}
   spawnTime: 3
   spawnPoints:
   - {fileID: 1355994581}
+  factory: {fileID: 1134947105}
 --- !u!114 &1134947105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,31 +629,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134947103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a99222b1e4a384e923ac7e86efc709, type: 3}
+  m_Script: {fileID: 11500000, guid: d72c51ed91ff956149c0c52b5331dd10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1967415063}
-  enemy: {fileID: 3525718423507900228, guid: bdaa28d6168a40d508ca8f6b46de4e76, type: 3}
-  spawnTime: 3
-  spawnPoints:
-  - {fileID: 1819400897}
---- !u!114 &1134947106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134947103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a99222b1e4a384e923ac7e86efc709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1967415063}
-  enemy: {fileID: 2005612149, guid: 6e09a3f76158678dca05a2bb489ea6a8, type: 3}
-  spawnTime: 3
-  spawnPoints:
-  - {fileID: 1581461466}
+  enemyPrefabs:
+  - {fileID: 2005612149, guid: 6e09a3f76158678dca05a2bb489ea6a8, type: 3}
+  - {fileID: 3525718423507900228, guid: bdaa28d6168a40d508ca8f6b46de4e76, type: 3}
+  - {fileID: 5107561142568117541, guid: f264ab47e25d0374ba89abced0b94b2a, type: 3}
 --- !u!4 &1134947107
 Transform:
   m_ObjectHideFlags: 0
