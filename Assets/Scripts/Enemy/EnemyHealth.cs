@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     private ParticleSystem _hitParticles;
     private bool _isDead;
     private bool _isSinking;
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
 
     private void Awake()
@@ -37,8 +38,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int amount, Vector3 hitPoint)
     {
-        if (_isDead)
-            return;
+        if (_isDead) return;
 
         _enemyAudio.Play();
 
@@ -57,7 +57,7 @@ public class EnemyHealth : MonoBehaviour
 
         _capsuleCollider.isTrigger = true;
 
-        _anim.SetTrigger("Dead");
+        _anim.SetTrigger(Dead);
 
         _enemyAudio.clip = deathClip;
         _enemyAudio.Play();
@@ -69,7 +69,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         _isSinking = true;
-        //ScoreManager.score += scoreValue;
+        ScoreManager.score += scoreValue;
         Destroy(gameObject, 2f);
     }
 }

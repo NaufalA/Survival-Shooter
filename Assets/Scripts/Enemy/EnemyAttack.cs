@@ -8,12 +8,11 @@ public class EnemyAttack : MonoBehaviour
 
     private Animator _anim;
     private GameObject _player;
-
     private PlayerHealth _playerHealth;
-
-    //EnemyHealth enemyHealth;
+    private EnemyHealth _enemyHealth;
     private bool _playerInRange;
     private float _timer;
+    
     private static readonly int PlayerDead = Animator.StringToHash("PlayerDead");
 
 
@@ -21,7 +20,7 @@ public class EnemyAttack : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerHealth = _player.GetComponent<PlayerHealth>();
-        //enemyHealth = GetComponent<EnemyHealth>();
+        _enemyHealth = GetComponent<EnemyHealth>();
         _anim = GetComponent<Animator>();
     }
 
@@ -30,7 +29,7 @@ public class EnemyAttack : MonoBehaviour
     {
         _timer += Time.deltaTime;
 
-        if (_timer >= timeBetweenAttacks && _playerInRange /* && enemyHealth.currentHealth > 0*/)
+        if (_timer >= timeBetweenAttacks && _playerInRange && _enemyHealth.currentHealth > 0)
         {
             Attack();
         }

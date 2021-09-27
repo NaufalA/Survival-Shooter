@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool _damaged;
 
-    //PlayerShooting playerShooting;
+    private PlayerShooting _playerShooting;
     private bool _isDead;
     private AudioSource _playerAudio;
     private PlayerMovement _playerMovement;
@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
         _anim = GetComponent<Animator>();
         _playerAudio = GetComponent<AudioSource>();
         _playerMovement = GetComponent<PlayerMovement>();
-        //playerShooting = GetComponentInChildren<PlayerShooting>();
+        _playerShooting = GetComponentInChildren<PlayerShooting>();
 
         currentHealth = startingHealth;
     }
@@ -69,7 +69,7 @@ public class PlayerHealth : MonoBehaviour
     {
         _isDead = true;
 
-        //playerShooting.DisableEffects();
+        _playerShooting.DisableEffects();
 
         _anim.SetTrigger(Die);
 
@@ -77,6 +77,6 @@ public class PlayerHealth : MonoBehaviour
         _playerAudio.Play();
 
         _playerMovement.enabled = false;
-        //playerShooting.enabled = false;
+        _playerShooting.enabled = false;
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9188913355458438387}
   - component: {fileID: 9151270784689639778}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Zombear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 4386508809518460583}
   - component: {fileID: 7538787424055145714}
   - component: {fileID: 8337820573056558693}
-  - component: {fileID: 2363740566479522762}
-  - component: {fileID: 6540634436418542766}
   - component: {fileID: 8171450845691754946}
+  - component: {fileID: 6540634436418542766}
+  - component: {fileID: 2363740566479522762}
   - component: {fileID: 1094526269775899635}
-  m_Layer: 0
-  m_Name: ZomBear 1
+  m_Layer: 10
+  m_Name: ZomBear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2363740566479522762
+--- !u!114 &8171450845691754946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,11 +215,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3525718423507900228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e15099f5ee559584089d5851df572def, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f6618a0da65fa45b24d5105d5d8422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenAttacks: 0.5
-  attackDamage: 15
 --- !u!114 &6540634436418542766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +235,7 @@ MonoBehaviour:
   sinkSpeed: 2.5
   scoreValue: 10
   deathClip: {fileID: 8300000, guid: 62366b8d2c37a49dca550841c741317f, type: 3}
---- !u!114 &8171450845691754946
+--- !u!114 &2363740566479522762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,9 +244,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3525718423507900228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f6618a0da65fa45b24d5105d5d8422, type: 3}
+  m_Script: {fileID: 11500000, guid: e15099f5ee559584089d5851df572def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenAttacks: 0.5
+  attackDamage: 15
 --- !u!82 &1094526269775899635
 AudioSource:
   m_ObjectHideFlags: 0
@@ -355,6 +355,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: ef39ae7291c751249b296f00bf6fb042, type: 3}
       propertyPath: m_Name
       value: HitParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ef39ae7291c751249b296f00bf6fb042, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ef39ae7291c751249b296f00bf6fb042, type: 3}
       propertyPath: m_LocalPosition.x
