@@ -1,34 +1,41 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
-    public PlayerHealth playerHealth;       
-    public float restartDelay = 5f;            
+    public PlayerHealth playerHealth;
+    public Text warningText;
+    public float restartDelay = 5f;
 
+    private Animator _anim;
+    private float _restartTimer;
+    private static readonly int GameOver = Animator.StringToHash("GameOver");
+    private static readonly int Warning = Animator.StringToHash("Warning");
 
-    Animator anim;                          
-    float restartTimer;                    
-
-
-    void Awake()
+    private void Awake()
     {
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
     }
 
-
-    void Update()
+    private void Update()
     {
         if (playerHealth.currentHealth <= 0)
         {
-            anim.SetTrigger("GameOver");
+            _anim.SetTrigger(GameOver);
 
-            restartTimer += Time.deltaTime;
+            _restartTimer += Time.deltaTime;
 
-            if (restartTimer >= restartDelay)
+            if (_restartTimer >= restartDelay)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
+    }
+
+    public void ShowWarning(float enemyDistance)
+    {
+        warningText.text = $"! {Mathf.RoundToInt(enemyDistance)} M";
+        _anim.SetTrigger(Warning);
     }
 }
