@@ -52,9 +52,7 @@ public class PlayerHealth : MonoBehaviour
     {
         _damaged = true;
 
-        currentHealth -= amount;
-
-        healthSlider.value = currentHealth;
+        UpdateHealth(-amount);
 
         _playerAudio.Play();
 
@@ -64,6 +62,10 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Heal(int amount)
+    {
+        UpdateHealth(amount);
+    }
 
     private void Death()
     {
@@ -78,5 +80,12 @@ public class PlayerHealth : MonoBehaviour
 
         _playerMovement.enabled = false;
         _playerShooting.enabled = false;
+    }
+
+    private void UpdateHealth(int healthValue)
+    {
+        int newHealth = currentHealth += healthValue;
+        currentHealth = Mathf.Clamp(newHealth, 0, startingHealth);
+        healthSlider.value = currentHealth;
     }
 }

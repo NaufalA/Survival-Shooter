@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
+    public PowerUpManager powerUpManager;
 
 
     private Animator _anim;
@@ -21,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
+        powerUpManager = FindObjectOfType<PowerUpManager>();
         _anim = GetComponent<Animator>();
         _enemyAudio = GetComponent<AudioSource>();
         _hitParticles = GetComponentInChildren<ParticleSystem>();
@@ -53,6 +55,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Death()
     {
+        powerUpManager.SpawnOnDeath(gameObject.transform);
         _isDead = true;
 
         _capsuleCollider.isTrigger = true;

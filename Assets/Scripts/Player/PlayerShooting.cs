@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour
 {
     public int damagePerShot = 20;
-    public float timeBetweenBullets = 0.15f;
+    public float timeBetweenBullets = 5f;
     public float range = 100f;
+    public int maxBullets = 100;
+
+    public Slider bulletSlider;
     
+    private int _currentBullets;
     private readonly float _effectsDisplayTime = 0.2f;
     private AudioSource _gunAudio;
     private Light _gunLight;
@@ -24,16 +29,13 @@ public class PlayerShooting : MonoBehaviour
         _gunLine = GetComponent<LineRenderer>();
         _gunAudio = GetComponent<AudioSource>();
         _gunLight = GetComponent<Light>();
+
+        _currentBullets = maxBullets;
     }
 
     private void Update()
     {
         _timer += Time.deltaTime;
-
-        if (Input.GetButton("Fire1") && _timer >= timeBetweenBullets)
-        {
-            Shoot();
-        }
 
         if (_timer >= timeBetweenBullets * _effectsDisplayTime)
         {
@@ -49,6 +51,13 @@ public class PlayerShooting : MonoBehaviour
 
     public void Shoot()
     {
+        if (_currentBullets <= 0 || gameObject.GetComponentInParent<PlayerHealth>().currentHealth <= 0 || _timer < timeBetweenBullets)
+        {
+            return;
+        }
+        
+        UpdateBullet(-1);
+
         _timer = 0f;
 
         _gunAudio.Play();
@@ -79,5 +88,12 @@ public class PlayerShooting : MonoBehaviour
         {
             _gunLine.SetPosition(1, _shootRay.origin + _shootRay.direction * range);
         }
+    }
+
+    public void UpdateBullet(int bulletValue)
+    {
+        int newBullet = _currentBullets += bulletValue;
+        _currentBullets = Mathf.Clamp(newBullet, 0, maxBullets);
+        bulletSlider.value = _currentBullets;
     }
 }

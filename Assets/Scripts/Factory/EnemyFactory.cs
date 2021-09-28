@@ -6,10 +6,9 @@ public class EnemyFactory : MonoBehaviour, IFactory
 {
     public GameObject[] enemyPrefabs;
     
-    // TODO: implement random spawn point
     public GameObject FactoryMethod(int index, Transform spawnPoint)
     {
-        GameObject enemy = Instantiate(enemyPrefabs[index], spawnPoint);
+        GameObject enemy = Instantiate(enemyPrefabs[index], spawnPoint.position, Quaternion.identity);
         return enemy;
     }
 }

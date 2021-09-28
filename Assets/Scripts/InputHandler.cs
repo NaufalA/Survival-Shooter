@@ -24,10 +24,7 @@ public class InputHandler : MonoBehaviour
     private void Update()
     {
         Command.Command shootCommand = InputShootHandling();
-        if (shootCommand != null)
-        {
-            shootCommand.Execute();
-        }
+        shootCommand?.Execute();
     }
 
     private Command.Command InputMoveHandling()
@@ -50,7 +47,6 @@ public class InputHandler : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Z))
         {
-            //Undo movement
             return Undo();
         }
         else

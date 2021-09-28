@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 6f;
 
+    private float _normalSpeed;
     private Vector3 _movement;
     private Animator _animator;
     private Rigidbody _playerRigidbody;
@@ -15,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        _normalSpeed = speed;
         _floorMask = LayerMask.GetMask("Floor");
         _animator = GetComponent<Animator>();
         _playerRigidbody = GetComponent<Rigidbody>();
@@ -27,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(float horizontal, float vertical)
     {
+        if (GetComponent<PlayerHealth>().currentHealth <= 0)
+        {
+            return;
+        }
+        
         _movement.Set(horizontal, 0f, vertical);
 
         _movement = _movement.normalized * speed * Time.deltaTime;
@@ -55,5 +63,18 @@ public class PlayerMovement : MonoBehaviour
     {
         bool walking = h != 0 || v != 0f;
         _animator.SetBool(IsWalking, walking);
+    }
+
+    public void SpeedUp(float speedUpAmount, float speedupTime)
+    {
+        speed *= speedUpAmount;
+
+        StartCoroutine(ResetSpeed(speedupTime));
+    }
+
+    private IEnumerator ResetSpeed(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        speed = _normalSpeed;
     }
 }
