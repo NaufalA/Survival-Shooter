@@ -22,15 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        
-        Move(horizontal,vertical);
         Turning();
-        Animating(horizontal, vertical);
     }
 
-    private void Move(float horizontal, float vertical)
+    public void Move(float horizontal, float vertical)
     {
         _movement.Set(horizontal, 0f, vertical);
 
@@ -39,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         _playerRigidbody.MovePosition(transform.position + _movement);
     }
 
-    private void Turning()
+    public void Turning()
     {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -56,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Animating(float h, float v)
+    public void Animating(float h, float v)
     {
         bool walking = h != 0 || v != 0f;
         _animator.SetBool(IsWalking, walking);

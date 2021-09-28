@@ -47,7 +47,7 @@ public class PlayerShooting : MonoBehaviour
         _gunLight.enabled = false;
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         _timer = 0f;
 
